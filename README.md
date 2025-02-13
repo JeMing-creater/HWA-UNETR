@@ -1,4 +1,6 @@
 # HWA-UNETR: Hierarchical Window Aggregate UNETR for 3D Multimodal Stomach Lesion Segmentation
+All code be released after the paper is accepted.
+
 
 ## Overview
 ![Overview](./img/Overview.png)
