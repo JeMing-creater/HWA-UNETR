@@ -129,23 +129,21 @@ class MFABlock(nn.Module):
         self.mamba.dt_proj.register_forward_hook(self.get_activation('o1'))
         self.mamba.dt_proj_b.register_forward_hook(self.get_activation('o2'))
         self.mamba.dt_proj_s.register_forward_hook(self.get_activation('o3'))
-        # qkv
-        # self.qkv = nn.Conv3d(dim, dim * 3, kernel_size=1, bias=False)
         self.fussion1 = nn.Conv3d(
-            in_channels=dim * 2,  # 输入通道数
-            out_channels=dim,  # 输出通道数
-            kernel_size=3,  # 内核大小
-            stride=1,  # 步长
-            padding=1,  # 填充，以保持空间尺寸不变
-            bias=True  # 是否使用偏置项
+            in_channels=dim * 2,  
+            out_channels=dim,  
+            kernel_size=3,  
+            stride=1,  
+            padding=1,  
+            bias=True  
         )
         self.fussion2 = nn.Conv3d(
-            in_channels=dim * 2,  # 输入通道数
-            out_channels=dim,  # 输出通道数
-            kernel_size=3,  # 内核大小
-            stride=1,  # 步长
-            padding=1,  # 填充，以保持空间尺寸不变
-            bias=True  # 是否使用偏置项
+            in_channels=dim * 2,  
+            out_channels=dim,  
+            kernel_size=3,  
+            stride=1,  
+            padding=1,  
+            bias=True  
         )
 
     def get_activation(self, layer_name):
@@ -163,32 +161,17 @@ class MFABlock(nn.Module):
         x_flat = x.reshape(B, C, n_tokens).transpose(-1, -2)
         x_norm = self.norm(x_flat)
         
-        # x_mamba, o_1, o_2, o_3 = self.mamba(x_norm)
         out, q, k, v = self.mamba(x_norm)
         
         q, k, v = q.unsqueeze(1), k.unsqueeze(1), v.unsqueeze(1)
         attn = (q.transpose(-2, -1) @ k).softmax(-1)
         out_a = (v @ attn.transpose(-2, -1)).view(B, -1, H, W, Z)
         out_a = self.fussion1(out_a)
-        # out = F.linear(rearrange(o_1 + o_2.flip([-1]) + o_3, "b d l -> b l d"), self.mamba.out_proj.weight, self.mamba.out_proj.bias)
         out_m = out.transpose(-1, -2).reshape(B, C, *img_dims)
         
         out = self.fussion2(torch.cat([out_a, out_m], dim=1))
         
         out = out + x_skip
-        # out = x_mamba.transpose(-1, -2).reshape(B, C, *img_dims)
-        
-        # # out_skip = out
-        # # out = out + x_skip
-        
-        # B, C, H, W, Z = x.shape
-        # q, k, v = self.qkv(x).view(B, self.num_heads, -1, H * W * Z).split(
-        #     [self.head_dim, self.head_dim, self.head_dim],
-        #     dim=2)
-        # attn = (q.transpose(-2, -1) @ k).softmax(-1)
-        # out = (v @ attn.transpose(-2, -1)).view(B, -1, H, W, Z)
-
-        # out = out + x_skip
         
         return out 
 
@@ -243,19 +226,15 @@ class Encoder(nn.Module):
                 self.mlps.append(MlpChannel(dims[i_layer], 2 * dims[i_layer], True))
         
     def forward(self, x):
-        # outs = []
         feature_out = []
         for i in range(4):
             x = self.downsample_layers[i](x)
             x = self.gscs[i](x)
-            # x = self.stages[i](x)
             feature_out.append(self.stages[i](x))
-            # feature_out.append(x)
             if i in self.out_indices:
                 norm_layer = getattr(self, f'norm{i}')
                 x = norm_layer(x)
                 x = self.mlps[i](x)
-                # outs.append(x_out)   
         return x, feature_out
 
 class TransposedConvLayer(nn.Module):
@@ -274,7 +253,6 @@ class TransposedConvLayer(nn.Module):
     def forward(self, x, feature):
         x = self.transposed1(x)
         x = torch.cat((x, feature), dim=1)
-        # x = self.Atten(x)
         x = self.transposed2(x)
         x = self.norm(x)
         return x
@@ -287,24 +265,14 @@ class HWABlock(nn.Module):
         self.dwa3 = nn.Conv3d(1, 1, kernel_size=kernel_sizes[2], stride=kernel_sizes[2])
         self.dwa4 = nn.Conv3d(1, 1, kernel_size=kernel_sizes[3], stride=kernel_sizes[3])
         
-        # self.norm = nn.LayerNorm(in_chans)
-        # self.mamba = Mamba(
-        #         d_model=in_chans, # Model dimension d_model
-        #         d_state=d_state,  # SSM state expansion factor
-        #         d_conv=d_conv,    # Local convolution width
-        #         expand=expand,    # Block expansion factor
-        #         # bimamba_type="v1",
-        #         bimamba_type="v3",   # TODO: set 154 assert bimamba_type=="v3" as none
-        #         nslices = num_slices
-        # )
         
         self.fussion = nn.Conv3d(
-            in_channels=4,  # 输入通道数
-            out_channels=in_chans,  # 输出通道数
-            kernel_size=3,  # 内核大小
-            stride=1,  # 步长
-            padding=1,  # 填充，以保持空间尺寸不变
-            bias=True  # 是否使用偏置项
+            in_channels=4,  
+            out_channels=in_chans,  
+            kernel_size=3,  
+            stride=1, 
+            padding=1,  
+            bias=True  
         )
         self.weights = nn.Parameter(torch.ones(in_chans))
         
@@ -332,23 +300,10 @@ class HWABlock(nn.Module):
             now_tensor.append(self.dw_change(channel_tensor, self.dwa4))
             now_tensor = torch.cat(now_tensor, dim=1)
             now_tensor = self.fussion(now_tensor)
-            
-            # B, C, H, W, Z = now_tensor.shape
-            # n_tokens = now_tensor.shape[2:].numel()
-            # img_dims = now_tensor.shape[2:]
-            # now_tensor = self.norm(now_tensor.reshape(B, C, n_tokens).transpose(-1, -2))
-            # now_tensor = self.mamba(now_tensor)
-            # now_tensor = now_tensor.transpose(-1, -2).reshape(B, C, *img_dims)
-            # weighted_sum = sum(w * t for w, t in zip(normalized_weights, now_tensor))
             all_tensor.append(now_tensor)
         
         x = sum(w * t for w, t in zip(normalized_weights, all_tensor))
-        # B, C, H, W, Z = now_tensor.shape
-        # n_tokens = now_tensor.shape[2:].numel()
-        # img_dims = now_tensor.shape[2:]
-        # now_tensor = self.norm(now_tensor.reshape(B, C, n_tokens).transpose(-1, -2))
-        # now_tensor, _, _, _ = self.mamba(now_tensor)
-        # x = now_tensor.transpose(-1, -2).reshape(B, C, *img_dims)
+        
             
         return x
          
