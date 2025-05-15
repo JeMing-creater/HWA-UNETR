@@ -1,0 +1,52 @@
+trainer:
+  num_epochs: 300
+  warmup: 2
+  batch_size: 2
+  resume: True
+  lr: 0.001
+  min_lr: 0.0000001
+  optimizer: adamw
+  weight_decay: 0.05
+  weight_decay_end: 0.04
+
+finetune:
+  GCM:
+    checkpoint: TFMUNETR_multimodals_ADC_T2_V
+    # checkpoint: TFMUNETR_singlemodals_ADC
+    # checkpoint: TFMUNETR_singlemodals_T2FS
+    # checkpoint: TFMUNETR_singlemodals_V
+  
+GCM_loader:
+  # By default, data is set as the .data directory. If the user needs to adjust the data location, please change the root option.
+  # root: data
+  root: /workspace/Jeming/HWA_UNETR/data
+  train_ratio: 0.7
+  val_ratio: 0.1
+  test_ratio: 0.2
+  # fusion: do you need test dataset? if not, can use fusion to fuse val and test data to one dataloader.
+  fusion: False
+  num_workers: 0
+  # if there are any examples loss or broken, please set in this flag.
+  leapfrag: []
+  checkModels: ['ADC', 'T2_FS', 'V']
+  # The minimum and maximum pixel values ​​of the corresponding modality, used for normalization
+  model_scale: [[0, 6000], [0, 4500], [0, 4500]] 
+  target_size: [128, 128, 64]
+
+hwa_unetr:
+  in_chans: 3
+  out_chans: 3
+  fussion: [1, 2, 4, 8]
+  kernel_sizes: [4, 2, 2, 2]
+  depths: [2, 2, 2, 2]
+  dims: [48, 96, 192, 384]
+  heads: [1, 2, 4, 4]
+  hidden_size: 768
+  num_slices_list: [64, 32, 16, 8]
+  out_indices: [0, 1, 2, 3]
+
+
+
+
+
+

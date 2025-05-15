@@ -1,0 +1,16 @@
+data
+logs
+score
+SegMamba
+setdata.py
+__pycache__
+model_store
+output_slices
+src/__pycache__
+src/model/__pycache__
+requirements/Mamba/causal-conv1d/build
+requirements/Mamba/causal-conv1d/causal_conv1d.egg-info
+requirements/Mamba/causal-conv1d/dist
+requirements/Mamba/mamba/build
+requirements/Mamba/mamba/mamba_ssm.egg-info
+requirements/Mamba/mamba/dist
