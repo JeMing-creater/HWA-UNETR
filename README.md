@@ -86,3 +86,7 @@ The sub-regions considered for evaluation in BraTS 21 challenge are the "enhanci
 # Experiments
 ![Table1](./img/Table1.jpg)
 ![Table2](./img/Table2.jpg)
+
+# Visual Comparisons 
+![Visual1](./img/Visual.png)
+![Visual2](./img/Heatmap.png)
