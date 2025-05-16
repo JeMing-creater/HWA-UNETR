@@ -70,7 +70,7 @@ and then users can note that there will be a dir name `data` that includes all d
 
 
 
-## publicly BraTS2021
+## publicly BraTS 2021
 
 **Modality**: MRI
 
