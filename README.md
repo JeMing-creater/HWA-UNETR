@@ -1,17 +1,8 @@
 # HWA-UNETR: Hierarchical Window Aggregate UNETR for 3D Multimodal Gastric Lesion Segmentation
 
-🎉 This work is provisional accepted by [MICCAI 2025](https://conferences.miccai.org/2025/en/default.asp) !
+### 🎉 This work is provisional accepted by [MICCAI 2025](https://conferences.miccai.org/2025/en/default.asp) !
 
-# Authors
-Jiaming Liang, 
-Lihuan Dai, 
-Xiaoqi Sheng, 
-Xiangguang Chen, 
-Chun Yao, 
-Guihua Tao, 
-Qibin Leng, 
-Honming, 
-Xi Zhong
+
 
 ![Overview](./img/Overview.jpg)
 
@@ -100,7 +91,7 @@ and then users can note that there will be a dir name `data` that includes all d
 ![Visual2](./img/Heatmap.png)
 
 ## Notion
-If there are any problems, please don't hesitate to contact me at by email: [jaming.work@gmail.com
+If there are any problems, please don't hesitate to contact me by email: [jaming.work@gmail.com
 ](mailto:jaming.work@gmail.com
 )
 
