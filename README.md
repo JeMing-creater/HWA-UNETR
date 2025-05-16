@@ -50,7 +50,7 @@ sh train.sh
 **Size**: 500 3D volumes (400 Training + 100 Validation)
 
 - Download the official GCM 2025 dataset from the link below: <br>
-    https://drive.google.com/file/d/1I1preHr3NfbHj2cENlkku45OvGnjtjYJ/view?usp=drive_link
+    https://drive.google.com/file/d/1Xqm7wbDGowjzGdjE4G4ZGBnB5ZFiGFbD/view?usp=drive_link
 
 ![GCM_V](./img/GCM_V.jpg)
 
@@ -93,11 +93,20 @@ and then users can note that there will be a dir name `data` that includes all d
 ![Visual2](./img/Heatmap.png)
 
 ## Notion
-If there are any problems, please don't hesitate to contact me by email: [jaming.work@gmail.com
+If there are any problems, please don't hesitate to contact us by email: [jaming.work@gmail.com
 ](mailto:jaming.work@gmail.com
 )
 
-or by wechat: [905120727](mailto:905120727)
+## Citation
+If you find this repository useful or utilize the GCM 2025 Dataset, please consider citing this paper:
+```
+@article{liang2025hwa,
+  title={HWA-UNETR: Hierarchical Window Aggregate UNETR for 3D Multimodal Gastric Lesion Segmentation},
+  author={Liang, Jiaming and Dai, Lihuan and Sheng, Xiaoqi and Chen, Xiangguang and Yao, Chun and Tao, Guihua and Leng, Qibin and Cai, Honming and Zhong, Xi},
+  journal={arXiv preprint arXiv:2505.10464},
+  year={2025}
+}
+```
 
 ## Acknowledgement
 Many thanks for these repos for their great contribution!
