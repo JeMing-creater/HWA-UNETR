@@ -52,6 +52,8 @@ sh train.sh
 - Download the official GCM 2025 dataset from the link below and place it into "TrainingData" in the dataset folder: <br>
     https://drive.google.com/file/d/1I1preHr3NfbHj2cENlkku45OvGnjtjYJ/view?usp=drive_link
 
+![GCM_V](./img/GCM_V.jpg)
+
 **How to use it:**
 Users need to download the dataset file `GCM2025.zip` from above link, and put it in the same directory as this file and run the following command:
 ```
