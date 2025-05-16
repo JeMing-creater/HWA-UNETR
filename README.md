@@ -50,7 +50,7 @@ sh train.sh
 **Size**: 500 3D volumes (400 Training + 100 Validation)
 
 - Download the official GCM 2025 dataset from the link below: <br>
-    https://drive.google.com/file/d/1Xqm7wbDGowjzGdjE4G4ZGBnB5ZFiGFbD/view?usp=drive_link
+    https://drive.google.com/file/d/1S_ld7KqXcq0BbmkfXdPd8aLQFLsvZ2xR/view?usp=drive_link
 
 ![GCM_V](./img/GCM_V.jpg)
 
