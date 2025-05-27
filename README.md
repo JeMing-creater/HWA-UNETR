@@ -2,9 +2,8 @@
 
 ### 🎉 This work is provisional accepted by [MICCAI 2025](https://conferences.miccai.org/2025/en/default.asp) !
 
-
-
 ![Overview](./img/Overview.jpg)
+
 
 # How to run this code
 All of the following operations must be entered in the operating system's command line.
