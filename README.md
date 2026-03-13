@@ -55,6 +55,8 @@ sh train.sh
 
 - Download the official GCM 2025 dataset from the link below: <br>
     https://drive.google.com/file/d/1S_ld7KqXcq0BbmkfXdPd8aLQFLsvZ2xR/view?usp=drive_link
+- Or you can download from:
+    Link: https://pan.baidu.com/s/1wgfjjF4yLWOVuMPqOc9JOQ?pwd=gcm2 ; Password: gcm2
 
 ![GCM_V](./img/GCM_V.jpg)
 
@@ -124,5 +126,6 @@ https://github.com/ge-xing/SegMamba
 https://github.com/lhaof/nnMamba
 
 https://github.com/LeonidAlekseev/Swin-UNETR
+
 
 
